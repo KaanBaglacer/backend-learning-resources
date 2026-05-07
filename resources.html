@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Java Backend Learning Resources</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0f11;
+    --surface: #1a1a1f;
+    --surface2: #222228;
+    --border: #2e2e38;
+    --text: #e8e8f0;
+    --muted: #7a7a8c;
+    --hint: #4a4a5a;
+    --must: #ff6b6b;
+    --must-bg: #2a1515;
+    --should: #f0a500;
+    --should-bg: #241a00;
+    --nice: #4ade80;
+    --nice-bg: #0a1f0f;
+    --accent: #7c6aff;
+    --accent-bg: #15102a;
+    --new: #00d4aa;
+    --new-bg: #001a14;
+    --link: #5b9cf6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header h1 {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .header p {
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .stat-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-top: 10px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+
+  .controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .search-wrap {
+    flex: 1;
+    min-width: 200px;
+    position: relative;
+  }
+
+  .search-wrap::before {
+    content: '⌕';
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--hint);
+    font-size: 16px;
+    pointer-events: none;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    padding: 8px 12px 8px 34px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  input[type="text"]:focus { border-color: var(--accent); }
+  input[type="text"]::placeholder { color: var(--hint); }
+
+  .filters {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    padding: 5px 12px;
+    transition: all 0.15s;
+  }
+
+  .filter-btn:hover { border-color: var(--accent); color: var(--text); }
+  .filter-btn.active { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); }
+
+  .section { margin-bottom: 1.25rem; }
+
+  .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0 8px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 6px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .section-head:hover .section-name { color: var(--text); }
+
+  .section-left { display: flex; align-items: center; gap: 10px; }
+
+  .section-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.15s;
+  }
+
+  .section-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--hint);
+    background: var(--surface2);
+    padding: 2px 7px;
+    border-radius: 10px;
+  }
+
+  .section-toggle {
+    font-size: 11px;
+    color: var(--hint);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .resource-list { display: flex; flex-direction: column; }
+
+  .resource-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 8px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background 0.12s;
+  }
+
+  .resource-row:hover { background: var(--surface); }
+  .resource-row.done { opacity: 0.4; }
+
+  .check {
+    width: 15px;
+    height: 15px;
+    border-radius: 4px;
+    border: 1.5px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+
+  .resource-row.done .check {
+    background: var(--nice);
+    border-color: var(--nice);
+  }
+
+  .check-mark {
+    display: none;
+    width: 7px;
+    height: 5px;
+    border-left: 1.5px solid #0a1f0f;
+    border-bottom: 1.5px solid #0a1f0f;
+    transform: rotate(-45deg) translate(1px, -1px);
+  }
+
+  .resource-row.done .check-mark { display: block; }
+
+  .badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .badge-must { background: var(--must-bg); color: var(--must); }
+  .badge-should { background: var(--should-bg); color: var(--should); }
+  .badge-nice { background: var(--nice-bg); color: var(--nice); }
+
+  .resource-title {
+    flex: 1;
+    font-size: 13px;
+    color: var(--text);
+    transition: color 0.12s;
+  }
+
+  .resource-row.done .resource-title {
+    text-decoration: line-through;
+    color: var(--hint);
+  }
+
+  .new-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: var(--new-bg);
+    color: var(--new);
+    border: 1px solid var(--new);
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+
+  .open-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--link);
+    padding: 2px 8px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    background: transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+    text-decoration: none;
+    transition: all 0.12s;
+  }
+
+  .open-link:hover {
+    border-color: var(--link);
+    background: rgba(91,156,246,0.08);
+  }
+
+  .empty {
+    text-align: center;
+    padding: 3rem;
+    color: var(--hint);
+    font-size: 13px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  @media (max-width: 600px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .header p { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <h1>Java Backend · System Design · DevOps</h1>
+    <p>Learning resource tracker</p>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="controls">
+    <div class="search-wrap">
+      <input type="text" id="search" placeholder="Search resources..." oninput="render()" />
+    </div>
+    <div class="filters">
+      <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+      <button class="filter-btn" onclick="setFilter('must',this)">Must read</button>
+      <button class="filter-btn" onclick="setFilter('should',this)">Should read</button>
+      <button class="filter-btn" onclick="setFilter('nice',this)">Nice to know</button>
+      <button class="filter-btn" onclick="setFilter('pending',this)">Unread</button>
+      <button class="filter-btn" onclick="setFilter('done',this)">Done</button>
+      <button class="filter-btn" onclick="setFilter('new',this)">New ✦</button>
+    </div>
+  </div>
+
+  <div id="content"></div>
+</div>
+
+<script>
+const DATA = [
+  { cat: "Java Fundamentals", items: [
+    { t: "Introduction to Java", p: "must", u: "https://www.geeksforgeeks.org/java/introduction-to-java/" },
+    { t: "OOP Concepts", p: "must", u: "https://www.geeksforgeeks.org/java/object-oriented-programming-oops-concept-in-java/" },
+    { t: "Classes and Objects", p: "must", u: "https://www.geeksforgeeks.org/java/classes-objects-java/" },
+    { t: "Interfaces in Java", p: "must", u: "https://www.geeksforgeeks.org/java/interfaces-in-java/" },
+    { t: "Interfaces vs Abstract Classes", p: "must", u: "https://www.geeksforgeeks.org/java/differences-between-interface-and-class-in-java/" },
+    { t: "Access Modifiers", p: "must", u: "https://www.geeksforgeeks.org/java/access-modifiers-java/" },
+    { t: "Static vs Instance Methods", p: "must", u: "https://www.geeksforgeeks.org/java/static-methods-vs-instance-methods-in-java/" },
+    { t: "Exception Handling", p: "must", u: "https://www.geeksforgeeks.org/java/exception-handling-in-java/" },
+    { t: "Checked vs Unchecked Exceptions", p: "must", u: "https://www.geeksforgeeks.org/java/checked-vs-unchecked-exceptions-in-java/" },
+    { t: "Optional Class", p: "must", u: "https://www.geeksforgeeks.org/java/java-8-optional-class/" },
+    { t: "String vs StringBuilder vs StringBuffer", p: "must", u: "https://www.geeksforgeeks.org/java/string-vs-stringbuilder-vs-stringbuffer-in-java/" },
+    { t: "Constructors in Java", p: "must", u: "https://www.geeksforgeeks.org/java/constructors-in-java/" },
+    { t: "Wrapper Classes", p: "must", u: "https://www.geeksforgeeks.org/java/wrapper-classes-java/" },
+    { t: "Generics in Java", p: "should", u: "https://www.geeksforgeeks.org/java/generics-in-java/" },
+    { t: "Functional Interfaces", p: "should", u: "https://www.geeksforgeeks.org/java/java-functional-interfaces/" },
+    { t: "Method References", p: "should", u: "https://www.geeksforgeeks.org/java/method-references-in-java-with-examples/" },
+    { t: "Java Collections", p: "should", u: "https://www.geeksforgeeks.org/java/collections-in-java-2/" },
+    { t: "Java Memory Management", p: "should", u: "https://www.geeksforgeeks.org/java/java-memory-management/" },
+    { t: "Pass by Value vs Reference", p: "should", u: "https://www.geeksforgeeks.org/java/is-java-pass-by-reference-or-pass-by-value/" },
+    { t: "Static Keyword", p: "should", u: "https://www.geeksforgeeks.org/java/static-keyword-java/" },
+    { t: "Java Keywords", p: "nice", u: "https://www.geeksforgeeks.org/java/java-keywords/" },
+    { t: "Variable Arguments (Varargs)", p: "nice", u: "https://www.geeksforgeeks.org/java/variable-arguments-varargs-in-java/" },
+  ]},
+  { cat: "Advanced Java", items: [
+    { t: "Multithreading in Java", p: "must", u: "https://www.geeksforgeeks.org/java/multithreading-in-java/" },
+    { t: "Java Concurrency", p: "must", u: "https://www.geeksforgeeks.org/java/java-concurrency-in-practice/" },
+    { t: "Race Conditions", p: "must", u: "https://www.geeksforgeeks.org/java/race-condition-vulnerability/" },
+    { t: "SHA-256 Hashing in Java", p: "must", u: "https://www.geeksforgeeks.org/java/sha-256-hash-in-java/" },
+    { t: "SecureRandom", p: "must", u: "https://www.geeksforgeeks.org/java/securerandom-class-in-java/" },
+    { t: "ThreadLocal in Java", p: "should", u: "https://www.geeksforgeeks.org/java/java-lang-threadlocal-class-in-java/" },
+    { t: "Java Security Package", p: "should", u: "https://www.geeksforgeeks.org/advance-java/java-security-package/" },
+    { t: "Synchronized keyword", p: "should", u: "https://www.geeksforgeeks.org/java/synchronization-in-java/" },
+    { t: "Java Atomic Classes", p: "nice", u: "https://www.geeksforgeeks.org/java/atomic-classes-in-java-with-examples/" },
+  ]},
+  { cat: "Design Patterns & Principles", items: [
+    { t: "SOLID Principles", p: "must", u: "https://www.geeksforgeeks.org/java/solid-principle-in-programming-understand-with-real-life-examples/" },
+    { t: "Single Responsibility Principle", p: "must", u: "https://www.geeksforgeeks.org/java/single-responsibility-in-solid-design-principle/" },
+    { t: "Dependency Inversion Principle", p: "must", u: "https://www.geeksforgeeks.org/java/dependecy-inversion-principle-solid/" },
+    { t: "Repository Pattern", p: "must", u: "https://www.geeksforgeeks.org/repository-design-pattern/" },
+    { t: "Builder Pattern", p: "must", u: "https://www.geeksforgeeks.org/java/builder-design-pattern/" },
+    { t: "Singleton Pattern", p: "must", u: "https://www.geeksforgeeks.org/java/singleton-design-pattern/" },
+    { t: "Factory Pattern", p: "should", u: "https://www.geeksforgeeks.org/java/factory-method-design-pattern-in-java/" },
+    { t: "Proxy Pattern", p: "should", u: "https://www.geeksforgeeks.org/java/proxy-design-pattern/" },
+    { t: "YAGNI Principle", p: "should", u: "https://www.geeksforgeeks.org/yagni-principle-in-software-engineering/" },
+    { t: "DRY Principle", p: "should", u: "https://www.geeksforgeeks.org/dont-repeat-yourself-dry-in-system-design/" },
+    { t: "GoF Design Patterns Overview", p: "nice", u: "https://www.geeksforgeeks.org/gang-of-four-gof-design-patterns/" },
+  ]},
+  { cat: "Spring Core", items: [
+    { t: "Spring Boot Introduction", p: "must", u: "https://www.geeksforgeeks.org/advance-java/introduction-to-spring-boot/" },
+    { t: "Spring Boot Architecture", p: "must", u: "https://www.geeksforgeeks.org/springboot/spring-boot-architecture/" },
+    { t: "IoC Container", p: "must", u: "https://www.geeksforgeeks.org/advance-java/spring-ioc-container/" },
+    { t: "Dependency Injection", p: "must", u: "https://www.geeksforgeeks.org/advance-java/spring-dependency-injection-with-example/" },
+    { t: "Bean Lifecycle", p: "must", u: "https://www.geeksforgeeks.org/java/bean-life-cycle-in-java-spring/" },
+    { t: "@Component vs @Service vs @Repository", p: "must", u: "https://www.geeksforgeeks.org/springboot/spring-component-vs-service-vs-repository/" },
+    { t: "Spring Boot Auto Configuration", p: "must", u: "https://www.geeksforgeeks.org/springboot/spring-boot-auto-configuration/" },
+    { t: "@Transactional in depth", p: "must", u: "https://www.geeksforgeeks.org/spring-boot-transaction-management-using-transactional-annotation/" },
+    { t: "Spring @Async", p: "must", u: "https://www.geeksforgeeks.org/spring-async-annotation/" },
+    { t: "@ConfigurationProperties", p: "must", u: "https://www.geeksforgeeks.org/springboot/spring-boot-configurationproperties/" },
+    { t: "Spring Profiles", p: "must", u: "https://www.geeksforgeeks.org/springboot/spring-boot-profiles/" },
+    { t: "Spring AOP", p: "should", u: "https://www.geeksforgeeks.org/spring-aop-aspect-oriented-programming/" },
+    { t: "Spring Bean Scopes", p: "should", u: "https://www.geeksforgeeks.org/springboot/spring-boot-bean-scopes/" },
+    { t: "Spring Expression Language", p: "should", u: "https://www.geeksforgeeks.org/springboot/spring-expression-languagespel/" },
+    { t: "Spring Boot Starters", p: "nice", u: "https://www.geeksforgeeks.org/springboot/spring-boot-starters/" },
+  ]},
+  { cat: "Spring MVC & REST", items: [
+    { t: "Spring Boot REST Example", p: "must", u: "https://www.geeksforgeeks.org/springboot/spring-boot-rest-example/" },
+    { t: "Exception Handling in Spring Boot", p: "must", u: "https://www.geeksforgeeks.org/springboot/exception-handling-in-spring-boot/" },
+    { t: "HTTP Status Codes", p: "must", u: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status" },
+    { t: "Request Mapping", p: "must", u: "https://www.geeksforgeeks.org/springboot/spring-requestmapping-annotation/" },
+    { t: "REST API Design", p: "must", u: "https://www.geeksforgeeks.org/system-design/rest-api-architectural-constraints/" },
+    { t: "Spring MVC Introduction", p: "should", u: "https://www.geeksforgeeks.org/springboot/spring-mvc-introduction/" },
+    { t: "ResponseEntity in Spring", p: "should", u: "https://www.geeksforgeeks.org/springboot/spring-boot-responseentity/" },
+    { t: "Bean Validation", p: "should", u: "https://www.geeksforgeeks.org/springboot/spring-boot-validation/" },
+    { t: "Content Negotiation", p: "nice", u: "https://www.geeksforgeeks.org/springboot/spring-boot-content-negotiation/" },
+  ]},
+  { cat: "Spring Data & Persistence", items: [
+    { t: "Spring Data JPA", p: "must", u: "https://www.geeksforgeeks.org/springboot/spring-boot-spring-data-jpa/" },
+    { t: "Hibernate Introduction", p: "must", u: "https://www.geeksforgeeks.org/java/introduction-to-hibernate-framework/" },
+    { t: "JPA Annotations", p: "must", u: "https://www.geeksforgeeks.org/java/hibernate-types-of-mapping/" },
+    { t: "@Query and @Modifying", p: "must", u: "https://www.geeksforgeeks.org/spring-data-jpa-query-annotation/" },
+    { t: "JDBC Introduction", p: "must", u: "https://www.geeksforgeeks.org/java/introduction-to-jdbc/" },
+    { t: "Transactions in JDBC", p: "must", u: "https://www.geeksforgeeks.org/java/transactions-in-jdbc/" },
+    { t: "Hibernate Caching", p: "should", u: "https://www.geeksforgeeks.org/java/hibernate-caching/" },
+    { t: "Hibernate ORM Mappings", p: "should", u: "https://www.geeksforgeeks.org/java/hibernate-types-of-mapping/" },
+    { t: "Database Indexing", p: "should", u: "https://www.geeksforgeeks.org/system-design/indexing-in-databases-set-1/" },
+    { t: "N+1 Problem", p: "should", u: "https://www.geeksforgeeks.org/n-1-query-problem-in-hibernate/" },
+    { t: "Hibernate Native SQL", p: "nice", u: "https://www.geeksforgeeks.org/java/hibernate-native-sql-query-with-example/" },
+  ]},
+  { cat: "Caching", items: [
+    { t: "Caching System Design", p: "must", u: "https://www.geeksforgeeks.org/system-design/caching-system-design-concept-for-beginners/" },
+    { t: "Redis Introduction", p: "must", u: "https://www.geeksforgeeks.org/redis-introduction/" },
+    { t: "Spring Boot Redis Cache", p: "must", u: "https://www.geeksforgeeks.org/springboot/spring-boot-redis-cache/" },
+    { t: "Cache-Aside Pattern", p: "must", u: "https://www.geeksforgeeks.org/system-design/cache-aside-pattern/" },
+    { t: "Redis Data Structures", p: "should", u: "https://www.geeksforgeeks.org/redis-data-types/" },
+    { t: "LRU Cache", p: "should", u: "https://www.geeksforgeeks.org/lru-cache-implementation/" },
+    { t: "Cache Eviction Policies", p: "should", u: "https://www.geeksforgeeks.org/cache-eviction-policies-system-design/" },
+    { t: "Redis vs Memcached", p: "nice", u: "https://www.geeksforgeeks.org/redis-vs-memcached/" },
+  ]},
+  { cat: "Testing", items: [
+    { t: "Unit Testing in Java", p: "must", u: "https://www.geeksforgeeks.org/unit-testing-software-testing/" },
+    { t: "JUnit 5", p: "must", u: "https://www.geeksforgeeks.org/java/junit-5/" },
+    { t: "Mockito Framework", p: "must", u: "https://www.geeksforgeeks.org/mockito-vs-junit/" },
+    { t: "Test Driven Development", p: "must", u: "https://www.geeksforgeeks.org/test-driven-development-tdd/" },
+    { t: "Integration Testing Spring Boot", p: "must", u: "https://www.geeksforgeeks.org/springboot/spring-boot-integration-testing/", n: true },
+    { t: "MockMvc in Spring Boot", p: "must", u: "https://www.geeksforgeeks.org/spring-boot-mockmvc-introduction/", n: true },
+    { t: "@SpringBootTest annotation", p: "must", u: "https://www.geeksforgeeks.org/springboot/spring-boot-test-annotation/", n: true },
+    { t: "Spring Boot 4.x @MockitoBean", p: "must", u: "https://docs.spring.io/spring-framework/reference/testing/annotations/integration-spring/annotation-mockitobean.html", n: true },
+    { t: "H2 In-Memory Database for Testing", p: "should", u: "https://www.geeksforgeeks.org/springboot/spring-boot-with-h2-database/", n: true },
+    { t: "Testcontainers with Spring Boot", p: "should", u: "https://www.geeksforgeeks.org/testcontainers-with-spring-boot/", n: true },
+    { t: "Testing Best Practices", p: "should", u: "https://www.geeksforgeeks.org/best-practices-for-unit-testing-in-java/" },
+    { t: "Test Pyramid", p: "should", u: "https://www.geeksforgeeks.org/test-pyramid-in-software-testing/" },
+  ]},
+  { cat: "System Design", items: [
+    { t: "System Design Introduction", p: "must", u: "https://www.geeksforgeeks.org/system-design/system-design-tutorial/" },
+    { t: "URL Shortener Design", p: "must", u: "https://www.geeksforgeeks.org/system-design/system-design-url-shortening-service/" },
+    { t: "CAP Theorem", p: "must", u: "https://www.geeksforgeeks.org/system-design/cap-theorem-in-dbms/" },
+    { t: "Load Balancing", p: "must", u: "https://www.geeksforgeeks.org/system-design/load-balancing-system-design/" },
+    { t: "Database Sharding", p: "must", u: "https://www.geeksforgeeks.org/system-design/database-sharding-a-system-design-concept/" },
+    { t: "Horizontal vs Vertical Scaling", p: "must", u: "https://www.geeksforgeeks.org/system-design/horizontal-and-vertical-scaling-in-system-design/" },
+    { t: "Consistent Hashing", p: "should", u: "https://www.geeksforgeeks.org/system-design/consistent-hashing/" },
+    { t: "Rate Limiting", p: "should", u: "https://www.geeksforgeeks.org/system-design/rate-limiting-in-system-design/" },
+    { t: "API Gateway", p: "should", u: "https://www.geeksforgeeks.org/system-design/api-gateway-system-design/" },
+    { t: "Message Queues", p: "should", u: "https://www.geeksforgeeks.org/system-design/message-queues-system-design/" },
+    { t: "Microservices Architecture", p: "nice", u: "https://www.geeksforgeeks.org/system-design/microservices-introduction/" },
+    { t: "Event Driven Architecture", p: "nice", u: "https://www.geeksforgeeks.org/system-design/event-driven-architecture-system-design/" },
+  ]},
+  { cat: "DevOps", items: [
+    { t: "Git Branching & Gitflow", p: "must", u: "https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow" },
+    { t: "Conventional Commits", p: "must", u: "https://www.conventionalcommits.org" },
+    { t: "Docker Introduction", p: "must", u: "https://www.geeksforgeeks.org/introduction-to-docker/" },
+    { t: "Docker Compose", p: "must", u: "https://www.geeksforgeeks.org/docker-compose/" },
+    { t: "Docker Volumes", p: "must", u: "https://www.geeksforgeeks.org/docker-volumes/" },
+    { t: "12 Factor App", p: "must", u: "https://12factor.net" },
+    { t: "Spring Boot Actuator", p: "must", u: "https://www.geeksforgeeks.org/spring-boot-actuator/", n: true },
+    { t: "Docker Networking", p: "should", u: "https://www.geeksforgeeks.org/docker-networking/" },
+    { t: "Docker Images vs Containers", p: "should", u: "https://www.geeksforgeeks.org/difference-between-docker-image-and-container/" },
+    { t: "CI/CD Introduction", p: "should", u: "https://www.geeksforgeeks.org/ci-cd-pipeline-introduction/" },
+    { t: "GitHub Actions", p: "should", u: "https://www.geeksforgeeks.org/github-actions/", n: true },
+    { t: "Spring Boot Docker Deployment", p: "should", u: "https://www.geeksforgeeks.org/dockerize-a-spring-boot-application/", n: true },
+    { t: "Pro Git Book (Ch 1-3)", p: "nice", u: "https://git-scm.com/book/en/v2" },
+  ]},
+  { cat: "General Engineering", items: [
+    { t: "Clean Code Principles", p: "must", u: "https://www.geeksforgeeks.org/7-common-programming-principles-that-every-developer-must-follow/" },
+    { t: "Fail Fast Principle", p: "must", u: "https://www.geeksforgeeks.org/fail-fast-system-design/" },
+    { t: "Eventual Consistency", p: "must", u: "https://www.geeksforgeeks.org/eventual-consistency-in-distributive-systems-learn-system-design/", n: true },
+    { t: "Separation of Concerns", p: "should", u: "https://www.geeksforgeeks.org/separation-of-concerns-soc/" },
+    { t: "Convention over Configuration", p: "should", u: "https://www.geeksforgeeks.org/convention-over-configuration/" },
+    { t: "Test Isolation Principles", p: "should", u: "https://www.geeksforgeeks.org/software-engineering-testing-guidelines/", n: true },
+    { t: "Technical Debt", p: "nice", u: "https://www.geeksforgeeks.org/what-is-technical-debt-and-how-to-measure-it/" },
+  ]},
+];
+
+const KEY = 'jb_resources_v1';
+let done = new Set();
+try { done = new Set(JSON.parse(localStorage.getItem(KEY) || '[]')); } catch(e) {}
+let filter = 'all';
+let collapsed = new Set();
+
+function save() { try { localStorage.setItem(KEY, JSON.stringify([...done])); } catch(e) {} }
+
+function setFilter(f, btn) {
+  filter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function toggle(t) {
+  done.has(t) ? done.delete(t) : done.add(t);
+  save(); render();
+}
+
+function toggleSection(cat) {
+  collapsed.has(cat) ? collapsed.delete(cat) : collapsed.add(cat);
+  render();
+}
+
+function renderStats() {
+  const total = DATA.reduce((a,c) => a + c.items.length, 0);
+  const doneCount = done.size;
+  const must = DATA.reduce((a,c) => a + c.items.filter(i => i.p==='must').length, 0);
+  const mustDone = DATA.reduce((a,c) => a + c.items.filter(i => i.p==='must' && done.has(i.t)).length, 0);
+  const newCount = DATA.reduce((a,c) => a + c.items.filter(i => i.n).length, 0);
+  const pct = total ? Math.round(doneCount/total*100) : 0;
+  const mpct = must ? Math.round(mustDone/must*100) : 0;
+  document.getElementById('stats').innerHTML = `
+    <div class="stat"><div class="stat-num">${doneCount}/${total}</div><div class="stat-label">Completed</div><div class="bar"><div class="bar-fill" style="width:${pct}%;background:#4ade80"></div></div></div>
+    <div class="stat"><div class="stat-num">${pct}%</div><div class="stat-label">Progress</div><div class="bar"><div class="bar-fill" style="width:${pct}%;background:#7c6aff"></div></div></div>
+    <div class="stat"><div class="stat-num">${mustDone}/${must}</div><div class="stat-label">Must reads</div><div class="bar"><div class="bar-fill" style="width:${mpct}%;background:#ff6b6b"></div></div></div>
+    <div class="stat"><div class="stat-num">${newCount}</div><div class="stat-label">New this session</div><div class="bar"><div class="bar-fill" style="width:100%;background:#00d4aa"></div></div></div>
+  `;
+}
+
+function render() {
+  const q = document.getElementById('search').value.toLowerCase();
+  renderStats();
+  let html = '';
+  DATA.forEach(sec => {
+    const items = sec.items.filter(item => {
+      if (q && !item.t.toLowerCase().includes(q)) return false;
+      if (filter === 'must') return item.p === 'must';
+      if (filter === 'should') return item.p === 'should';
+      if (filter === 'nice') return item.p === 'nice';
+      if (filter === 'pending') return !done.has(item.t);
+      if (filter === 'done') return done.has(item.t);
+      if (filter === 'new') return item.n;
+      return true;
+    });
+    if (!items.length) return;
+    const isCollapsed = collapsed.has(sec.cat);
+    const doneC = items.filter(i => done.has(i.t)).length;
+    const sc = sec.cat.replace(/'/g,"\\'");
+    html += `<div class="section">
+      <div class="section-head" onclick="toggleSection('${sc}')">
+        <div class="section-left">
+          <span class="section-name">${sec.cat}</span>
+          <span class="section-count">${doneC}/${items.length}</span>
+        </div>
+        <span class="section-toggle">${isCollapsed ? '[ + ]' : '[ − ]'}</span>
+      </div>`;
+    if (!isCollapsed) {
+      html += '<div class="resource-list">';
+      items.forEach(item => {
+        const isDone = done.has(item.t);
+        const badgeMap = { must: 'must', should: 'should', nice: 'nice' };
+        const labelMap = { must: 'M', should: 'S', nice: 'N' };
+        const st = item.t.replace(/'/g,"\\'");
+        html += `<div class="resource-row ${isDone ? 'done' : ''}" onclick="toggle('${st}')">
+          <div class="check"><div class="check-mark"></div></div>
+          <div class="badge badge-${badgeMap[item.p]}">${labelMap[item.p]}</div>
+          <span class="resource-title">${item.t}</span>
+          ${item.n ? '<span class="new-tag">NEW</span>' : ''}
+          <a class="open-link" href="${item.u}" target="_blank" onclick="event.stopPropagation()">open →</a>
+        </div>`;
+      });
+      html += '</div>';
+    }
+    html += '</div>';
+  });
+  if (!html) html = '<div class="empty">// no results found</div>';
+  document.getElementById('content').innerHTML = html;
+}
+
+render();
+</script>
+</body>
+</html>
