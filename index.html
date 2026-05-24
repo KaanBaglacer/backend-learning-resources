@@ -26,9 +26,9 @@
     --new-bg: #001a14;
     --link: #5b9cf6;
   }
-
+ 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
   body {
     background: var(--bg);
     color: var(--text);
@@ -37,19 +37,19 @@
     line-height: 1.5;
     min-height: 100vh;
   }
-
+ 
   .page {
     max-width: 860px;
     margin: 0 auto;
     padding: 2rem 1.5rem 4rem;
   }
-
+ 
   .header {
     margin-bottom: 2rem;
     padding-bottom: 1.5rem;
     border-bottom: 1px solid var(--border);
   }
-
+ 
   .header h1 {
     font-family: 'DM Mono', monospace;
     font-size: 13px;
@@ -59,28 +59,28 @@
     text-transform: uppercase;
     margin-bottom: 0.5rem;
   }
-
+ 
   .header p {
     font-size: 22px;
     font-weight: 300;
     color: var(--text);
     letter-spacing: -0.02em;
   }
-
+ 
   .stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
     margin-bottom: 1.5rem;
   }
-
+ 
   .stat {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 14px 16px;
   }
-
+ 
   .stat-num {
     font-family: 'DM Mono', monospace;
     font-size: 20px;
@@ -88,14 +88,14 @@
     color: var(--text);
     margin-bottom: 4px;
   }
-
+ 
   .stat-label {
     font-size: 11px;
     color: var(--muted);
     letter-spacing: 0.05em;
     text-transform: uppercase;
   }
-
+ 
   .bar {
     height: 3px;
     background: var(--border);
@@ -103,13 +103,13 @@
     margin-top: 10px;
     overflow: hidden;
   }
-
+ 
   .bar-fill {
     height: 100%;
     border-radius: 2px;
     transition: width 0.4s ease;
   }
-
+ 
   .controls {
     display: flex;
     gap: 10px;
@@ -117,13 +117,13 @@
     flex-wrap: wrap;
     align-items: center;
   }
-
+ 
   .search-wrap {
     flex: 1;
     min-width: 200px;
     position: relative;
   }
-
+ 
   .search-wrap::before {
     content: '⌕';
     position: absolute;
@@ -134,7 +134,7 @@
     font-size: 16px;
     pointer-events: none;
   }
-
+ 
   input[type="text"] {
     width: 100%;
     background: var(--surface);
@@ -147,16 +147,16 @@
     outline: none;
     transition: border-color 0.2s;
   }
-
+ 
   input[type="text"]:focus { border-color: var(--accent); }
   input[type="text"]::placeholder { color: var(--hint); }
-
+ 
   .filters {
     display: flex;
     gap: 6px;
     flex-wrap: wrap;
   }
-
+ 
   .filter-btn {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -168,12 +168,12 @@
     padding: 5px 12px;
     transition: all 0.15s;
   }
-
+ 
   .filter-btn:hover { border-color: var(--accent); color: var(--text); }
   .filter-btn.active { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); }
-
+ 
   .section { margin-bottom: 1.25rem; }
-
+ 
   .section-head {
     display: flex;
     align-items: center;
@@ -184,11 +184,11 @@
     cursor: pointer;
     user-select: none;
   }
-
+ 
   .section-head:hover .section-name { color: var(--text); }
-
+ 
   .section-left { display: flex; align-items: center; gap: 10px; }
-
+ 
   .section-name {
     font-size: 13px;
     font-weight: 500;
@@ -197,7 +197,7 @@
     text-transform: uppercase;
     transition: color 0.15s;
   }
-
+ 
   .section-count {
     font-family: 'DM Mono', monospace;
     font-size: 11px;
@@ -206,15 +206,15 @@
     padding: 2px 7px;
     border-radius: 10px;
   }
-
+ 
   .section-toggle {
     font-size: 11px;
     color: var(--hint);
     font-family: 'DM Mono', monospace;
   }
-
+ 
   .resource-list { display: flex; flex-direction: column; }
-
+ 
   .resource-row {
     display: flex;
     align-items: center;
@@ -224,10 +224,10 @@
     cursor: pointer;
     transition: background 0.12s;
   }
-
+ 
   .resource-row:hover { background: var(--surface); }
   .resource-row.done { opacity: 0.4; }
-
+ 
   .check {
     width: 15px;
     height: 15px;
@@ -239,12 +239,12 @@
     justify-content: center;
     transition: all 0.15s;
   }
-
+ 
   .resource-row.done .check {
     background: var(--nice);
     border-color: var(--nice);
   }
-
+ 
   .check-mark {
     display: none;
     width: 7px;
@@ -253,9 +253,9 @@
     border-bottom: 1.5px solid #0a1f0f;
     transform: rotate(-45deg) translate(1px, -1px);
   }
-
+ 
   .resource-row.done .check-mark { display: block; }
-
+ 
   .badge {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
@@ -268,23 +268,23 @@
     justify-content: center;
     flex-shrink: 0;
   }
-
+ 
   .badge-must { background: var(--must-bg); color: var(--must); }
   .badge-should { background: var(--should-bg); color: var(--should); }
   .badge-nice { background: var(--nice-bg); color: var(--nice); }
-
+ 
   .resource-title {
     flex: 1;
     font-size: 13px;
     color: var(--text);
     transition: color 0.12s;
   }
-
+ 
   .resource-row.done .resource-title {
     text-decoration: line-through;
     color: var(--hint);
   }
-
+ 
   .new-tag {
     font-family: 'DM Mono', monospace;
     font-size: 9px;
@@ -297,7 +297,7 @@
     letter-spacing: 0.05em;
     flex-shrink: 0;
   }
-
+ 
   .open-link {
     font-family: 'DM Mono', monospace;
     font-size: 11px;
@@ -311,12 +311,12 @@
     text-decoration: none;
     transition: all 0.12s;
   }
-
+ 
   .open-link:hover {
     border-color: var(--link);
     background: rgba(91,156,246,0.08);
   }
-
+ 
   .empty {
     text-align: center;
     padding: 3rem;
@@ -324,7 +324,7 @@
     font-size: 13px;
     font-family: 'DM Mono', monospace;
   }
-
+ 
   @media (max-width: 600px) {
     .stats { grid-template-columns: repeat(2, 1fr); }
     .header p { font-size: 18px; }
@@ -337,9 +337,9 @@
     <h1>Java Backend · System Design · DevOps</h1>
     <p>Learning resource tracker</p>
   </div>
-
+ 
   <div class="stats" id="stats"></div>
-
+ 
   <div class="controls">
     <div class="search-wrap">
       <input type="text" id="search" placeholder="Search resources..." oninput="render()" />
@@ -354,10 +354,10 @@
       <button class="filter-btn" onclick="setFilter('new',this)">New ✦</button>
     </div>
   </div>
-
+ 
   <div id="content"></div>
 </div>
-
+ 
 <script>
 const DATA = [
   { cat: "Java Fundamentals", items: [
@@ -390,6 +390,7 @@ const DATA = [
     { t: "Race Conditions", p: "must", u: "https://www.geeksforgeeks.org/java/race-condition-vulnerability/" },
     { t: "SHA-256 Hashing in Java", p: "must", u: "https://www.geeksforgeeks.org/java/sha-256-hash-in-java/" },
     { t: "SecureRandom", p: "must", u: "https://www.geeksforgeeks.org/java/securerandom-class-in-java/" },
+    { t: "ConcurrentHashMap in Java", p: "must", u: "https://www.geeksforgeeks.org/java/concurrenthashmap-in-java/", n: true },
     { t: "ThreadLocal in Java", p: "should", u: "https://www.geeksforgeeks.org/java/java-lang-threadlocal-class-in-java/" },
     { t: "Java Security Package", p: "should", u: "https://www.geeksforgeeks.org/advance-java/java-security-package/" },
     { t: "Synchronized keyword", p: "should", u: "https://www.geeksforgeeks.org/java/synchronization-in-java/" },
@@ -413,13 +414,17 @@ const DATA = [
     { t: "Spring Boot Architecture", p: "must", u: "https://www.geeksforgeeks.org/springboot/spring-boot-architecture/" },
     { t: "IoC Container", p: "must", u: "https://www.geeksforgeeks.org/advance-java/spring-ioc-container/" },
     { t: "Dependency Injection", p: "must", u: "https://www.geeksforgeeks.org/advance-java/spring-dependency-injection-with-example/" },
+    { t: "Constructor vs Field Injection", p: "must", u: "https://www.baeldung.com/constructor-injection-in-spring", n: true },
     { t: "Bean Lifecycle", p: "must", u: "https://www.geeksforgeeks.org/java/bean-life-cycle-in-java-spring/" },
     { t: "@Component vs @Service vs @Repository", p: "must", u: "https://www.geeksforgeeks.org/springboot/spring-component-vs-service-vs-repository/" },
     { t: "Spring Boot Auto Configuration", p: "must", u: "https://www.geeksforgeeks.org/springboot/spring-boot-auto-configuration/" },
     { t: "@Transactional in depth", p: "must", u: "https://www.geeksforgeeks.org/spring-boot-transaction-management-using-transactional-annotation/" },
+    { t: "@Transactional Propagation Levels", p: "must", u: "https://www.baeldung.com/spring-transactional-propagation-isolation", n: true },
     { t: "Spring @Async", p: "must", u: "https://www.geeksforgeeks.org/spring-async-annotation/" },
     { t: "@ConfigurationProperties", p: "must", u: "https://www.geeksforgeeks.org/springboot/spring-boot-configurationproperties/" },
     { t: "Spring Profiles", p: "must", u: "https://www.geeksforgeeks.org/springboot/spring-boot-profiles/" },
+    { t: "Spring Boot 4.x Migration Guide", p: "must", u: "https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-4.0-Migration-Guide", n: true },
+    { t: "Servlet Filters in Spring Boot", p: "must", u: "https://www.baeldung.com/spring-boot-add-filter", n: true },
     { t: "Spring AOP", p: "should", u: "https://www.geeksforgeeks.org/spring-aop-aspect-oriented-programming/" },
     { t: "Spring Bean Scopes", p: "should", u: "https://www.geeksforgeeks.org/springboot/spring-boot-bean-scopes/" },
     { t: "Spring Expression Language", p: "should", u: "https://www.geeksforgeeks.org/springboot/spring-expression-languagespel/" },
@@ -431,6 +436,7 @@ const DATA = [
     { t: "HTTP Status Codes", p: "must", u: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status" },
     { t: "Request Mapping", p: "must", u: "https://www.geeksforgeeks.org/springboot/spring-requestmapping-annotation/" },
     { t: "REST API Design", p: "must", u: "https://www.geeksforgeeks.org/system-design/rest-api-architectural-constraints/" },
+    { t: "OpenAPI 3 & Swagger with springdoc", p: "must", u: "https://springdoc.org/", n: true },
     { t: "Spring MVC Introduction", p: "should", u: "https://www.geeksforgeeks.org/springboot/spring-mvc-introduction/" },
     { t: "ResponseEntity in Spring", p: "should", u: "https://www.geeksforgeeks.org/springboot/spring-boot-responseentity/" },
     { t: "Bean Validation", p: "should", u: "https://www.geeksforgeeks.org/springboot/spring-boot-validation/" },
@@ -443,6 +449,9 @@ const DATA = [
     { t: "@Query and @Modifying", p: "must", u: "https://www.geeksforgeeks.org/spring-data-jpa-query-annotation/" },
     { t: "JDBC Introduction", p: "must", u: "https://www.geeksforgeeks.org/java/introduction-to-jdbc/" },
     { t: "Transactions in JDBC", p: "must", u: "https://www.geeksforgeeks.org/java/transactions-in-jdbc/" },
+    { t: "Flyway Database Migrations", p: "must", u: "https://www.baeldung.com/database-migrations-with-flyway", n: true },
+    { t: "ddl-auto none vs update vs create", p: "must", u: "https://www.baeldung.com/spring-boot-data-sql-and-schema-sql", n: true },
+    { t: "SQL Reserved Keywords", p: "should", u: "https://www.w3schools.com/sql/sql_ref_keywords.asp", n: true },
     { t: "Hibernate Caching", p: "should", u: "https://www.geeksforgeeks.org/java/hibernate-caching/" },
     { t: "Hibernate ORM Mappings", p: "should", u: "https://www.geeksforgeeks.org/java/hibernate-types-of-mapping/" },
     { t: "Database Indexing", p: "should", u: "https://www.geeksforgeeks.org/system-design/indexing-in-databases-set-1/" },
@@ -454,10 +463,21 @@ const DATA = [
     { t: "Redis Introduction", p: "must", u: "https://www.geeksforgeeks.org/redis-introduction/" },
     { t: "Spring Boot Redis Cache", p: "must", u: "https://www.geeksforgeeks.org/springboot/spring-boot-redis-cache/" },
     { t: "Cache-Aside Pattern", p: "must", u: "https://www.geeksforgeeks.org/system-design/cache-aside-pattern/" },
+    { t: "@Cacheable & @CacheEvict", p: "must", u: "https://www.baeldung.com/spring-cache-tutorial", n: true },
+    { t: "Redis TTL & Eviction Policies", p: "should", u: "https://redis.io/docs/manual/eviction/", n: true },
     { t: "Redis Data Structures", p: "should", u: "https://www.geeksforgeeks.org/redis-data-types/" },
     { t: "LRU Cache", p: "should", u: "https://www.geeksforgeeks.org/lru-cache-implementation/" },
     { t: "Cache Eviction Policies", p: "should", u: "https://www.geeksforgeeks.org/cache-eviction-policies-system-design/" },
     { t: "Redis vs Memcached", p: "nice", u: "https://www.geeksforgeeks.org/redis-vs-memcached/" },
+  ]},
+  { cat: "Security & Rate Limiting", items: [
+    { t: "API Key Authentication Pattern", p: "must", u: "https://www.baeldung.com/spring-security-api-key-authentication", n: true },
+    { t: "Token Bucket Algorithm", p: "must", u: "https://www.geeksforgeeks.org/token-bucket-algorithm/", n: true },
+    { t: "Fixed Window vs Token Bucket Rate Limiting", p: "must", u: "https://www.geeksforgeeks.org/system-design/rate-limiting-algorithms-system-design/", n: true },
+    { t: "Bucket4j Rate Limiting", p: "must", u: "https://bucket4j.com/", n: true },
+    { t: "SHA-256 for Password/Key Hashing", p: "must", u: "https://www.baeldung.com/sha-256-hashing-java", n: true },
+    { t: "Distributed Rate Limiting with Redis", p: "should", u: "https://redis.io/glossary/rate-limiting/", n: true },
+    { t: "HTTP 401 vs 403 vs 429", p: "should", u: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status", n: true },
   ]},
   { cat: "Testing", items: [
     { t: "Unit Testing in Java", p: "must", u: "https://www.geeksforgeeks.org/unit-testing-software-testing/" },
@@ -468,8 +488,12 @@ const DATA = [
     { t: "MockMvc in Spring Boot", p: "must", u: "https://www.geeksforgeeks.org/spring-boot-mockmvc-introduction/", n: true },
     { t: "@SpringBootTest annotation", p: "must", u: "https://www.geeksforgeeks.org/springboot/spring-boot-test-annotation/", n: true },
     { t: "Spring Boot 4.x @MockitoBean", p: "must", u: "https://docs.spring.io/spring-framework/reference/testing/annotations/integration-spring/annotation-mockitobean.html", n: true },
+    { t: "MockMvc with Filters (addFilters)", p: "must", u: "https://www.baeldung.com/spring-mvc-test-filters", n: true },
+    { t: "Test Isolation with @BeforeEach", p: "must", u: "https://www.baeldung.com/junit-5-test-isolation", n: true },
     { t: "H2 In-Memory Database for Testing", p: "should", u: "https://www.geeksforgeeks.org/springboot/spring-boot-with-h2-database/", n: true },
     { t: "Testcontainers with Spring Boot", p: "should", u: "https://www.geeksforgeeks.org/testcontainers-with-spring-boot/", n: true },
+    { t: "NoOpCacheManager in Tests", p: "should", u: "https://www.baeldung.com/spring-cache-testing", n: true },
+    { t: "lenient() Mockito stubs", p: "should", u: "https://www.baeldung.com/mockito-unnecessary-stubbing-exception", n: true },
     { t: "Testing Best Practices", p: "should", u: "https://www.geeksforgeeks.org/best-practices-for-unit-testing-in-java/" },
     { t: "Test Pyramid", p: "should", u: "https://www.geeksforgeeks.org/test-pyramid-in-software-testing/" },
   ]},
@@ -480,6 +504,7 @@ const DATA = [
     { t: "Load Balancing", p: "must", u: "https://www.geeksforgeeks.org/system-design/load-balancing-system-design/" },
     { t: "Database Sharding", p: "must", u: "https://www.geeksforgeeks.org/system-design/database-sharding-a-system-design-concept/" },
     { t: "Horizontal vs Vertical Scaling", p: "must", u: "https://www.geeksforgeeks.org/system-design/horizontal-and-vertical-scaling-in-system-design/" },
+    { t: "Distributed Rate Limiting", p: "must", u: "https://www.geeksforgeeks.org/system-design/rate-limiting-in-system-design/", n: true },
     { t: "Consistent Hashing", p: "should", u: "https://www.geeksforgeeks.org/system-design/consistent-hashing/" },
     { t: "Rate Limiting", p: "should", u: "https://www.geeksforgeeks.org/system-design/rate-limiting-in-system-design/" },
     { t: "API Gateway", p: "should", u: "https://www.geeksforgeeks.org/system-design/api-gateway-system-design/" },
@@ -493,14 +518,27 @@ const DATA = [
     { t: "Docker Introduction", p: "must", u: "https://www.geeksforgeeks.org/introduction-to-docker/" },
     { t: "Docker Compose", p: "must", u: "https://www.geeksforgeeks.org/docker-compose/" },
     { t: "Docker Volumes", p: "must", u: "https://www.geeksforgeeks.org/docker-volumes/" },
+    { t: "Multi-stage Docker Builds", p: "must", u: "https://docs.docker.com/build/building/multi-stage/", n: true },
+    { t: "Docker Networking & Container Names", p: "must", u: "https://docs.docker.com/network/", n: true },
     { t: "12 Factor App", p: "must", u: "https://12factor.net" },
     { t: "Spring Boot Actuator", p: "must", u: "https://www.geeksforgeeks.org/spring-boot-actuator/", n: true },
+    { t: "GitHub Actions CI/CD", p: "must", u: "https://www.geeksforgeeks.org/github-actions/", n: true },
+    { t: "Maven Caching in CI (hashFiles)", p: "should", u: "https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows", n: true },
     { t: "Docker Networking", p: "should", u: "https://www.geeksforgeeks.org/docker-networking/" },
     { t: "Docker Images vs Containers", p: "should", u: "https://www.geeksforgeeks.org/difference-between-docker-image-and-container/" },
     { t: "CI/CD Introduction", p: "should", u: "https://www.geeksforgeeks.org/ci-cd-pipeline-introduction/" },
-    { t: "GitHub Actions", p: "should", u: "https://www.geeksforgeeks.org/github-actions/", n: true },
     { t: "Spring Boot Docker Deployment", p: "should", u: "https://www.geeksforgeeks.org/dockerize-a-spring-boot-application/", n: true },
     { t: "Pro Git Book (Ch 1-3)", p: "nice", u: "https://git-scm.com/book/en/v2" },
+  ]},
+  { cat: "Observability", items: [
+    { t: "Micrometer Metric Types (Counter/Gauge/Timer)", p: "must", u: "https://micrometer.io/docs/concepts", n: true },
+    { t: "Prometheus Introduction", p: "must", u: "https://prometheus.io/docs/introduction/overview/", n: true },
+    { t: "Prometheus Scraping Model", p: "must", u: "https://prometheus.io/docs/introduction/first_steps/", n: true },
+    { t: "Grafana Dashboards", p: "must", u: "https://grafana.com/docs/grafana/latest/getting-started/", n: true },
+    { t: "Spring Boot Actuator Prometheus", p: "must", u: "https://www.baeldung.com/spring-boot-metrics", n: true },
+    { t: "Custom Metrics with MeterRegistry", p: "must", u: "https://www.baeldung.com/micrometer", n: true },
+    { t: "PromQL Basics", p: "should", u: "https://prometheus.io/docs/prometheus/latest/querying/basics/", n: true },
+    { t: "Structured Logging (JSON/Logback)", p: "should", u: "https://www.baeldung.com/java-log-json-output", n: true },
   ]},
   { cat: "General Engineering", items: [
     { t: "Clean Code Principles", p: "must", u: "https://www.geeksforgeeks.org/7-common-programming-principles-that-every-developer-must-follow/" },
@@ -512,32 +550,32 @@ const DATA = [
     { t: "Technical Debt", p: "nice", u: "https://www.geeksforgeeks.org/what-is-technical-debt-and-how-to-measure-it/" },
   ]},
 ];
-
+ 
 const KEY = 'jb_resources_v1';
 let done = new Set();
 try { done = new Set(JSON.parse(localStorage.getItem(KEY) || '[]')); } catch(e) {}
 let filter = 'all';
 let collapsed = new Set();
-
+ 
 function save() { try { localStorage.setItem(KEY, JSON.stringify([...done])); } catch(e) {} }
-
+ 
 function setFilter(f, btn) {
   filter = f;
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   render();
 }
-
+ 
 function toggle(t) {
   done.has(t) ? done.delete(t) : done.add(t);
   save(); render();
 }
-
+ 
 function toggleSection(cat) {
   collapsed.has(cat) ? collapsed.delete(cat) : collapsed.add(cat);
   render();
 }
-
+ 
 function renderStats() {
   const total = DATA.reduce((a,c) => a + c.items.length, 0);
   const doneCount = done.size;
@@ -553,7 +591,7 @@ function renderStats() {
     <div class="stat"><div class="stat-num">${newCount}</div><div class="stat-label">New this session</div><div class="bar"><div class="bar-fill" style="width:100%;background:#00d4aa"></div></div></div>
   `;
 }
-
+ 
 function render() {
   const q = document.getElementById('search').value.toLowerCase();
   renderStats();
@@ -603,7 +641,7 @@ function render() {
   if (!html) html = '<div class="empty">// no results found</div>';
   document.getElementById('content').innerHTML = html;
 }
-
+ 
 render();
 </script>
 </body>
